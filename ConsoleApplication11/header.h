@@ -18,6 +18,7 @@ struct FoodComposition {
 	double lipid;
 	double carbohydrate;
 	double salt;
+	FoodComposition* nextFoodComposition;
 };
 
 struct FoodCompositionTable {
@@ -32,5 +33,5 @@ struct Ingredient {
 };
 
 struct Recipe {
-	Ingredient firstIngredient;
+	Ingredient* firstIngredient;
 };
