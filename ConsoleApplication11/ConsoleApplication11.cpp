@@ -17,6 +17,8 @@ int main(){
 		return 0;//終了
 	}
 
+
+
 	return 0;
 }
 //aiueo
