@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleApplication11.cpp" />
+    <ClCompile Include="NutritionalValueCalculation .cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />
