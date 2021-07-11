@@ -1,6 +1,6 @@
 #include "header.h"
 
-void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable) {
+void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable) {//
 	FILE* fp;
 	char s[BUFFSIZE];
 	char delim[] = ", ";//デリミタ（複数渡せる）ここではカンマと空白
@@ -22,7 +22,7 @@ void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable) {
 				p[i] = strtok_s(NULL, delim, &np); // ２個目以降の部分文字列取得
 
 			currentFoodComposition->index = atoi(p[0]);
-			myStrcpy(currentFoodComposition->food, p[1]);
+			myStrcpy(currentFoodComposition->food, p[1]);//myStr
 			currentFoodComposition->energy = atof(p[2]);
 			currentFoodComposition->protein = atof(p[3]);
 			currentFoodComposition->lipid = atof(p[4]);
@@ -38,7 +38,7 @@ void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable) {
 	}
 }
 
-void readCSV2(const char* fileName, Recipe* recipe) {
+void readCSV2(const char* fileName, Recipe* recipe) {//
 	FILE* fp;
 	char s[BUFFSIZE];
 	char delim[] = ", ";//デリミタ（複数渡せる）ここではカンマと空白
@@ -60,11 +60,11 @@ void readCSV2(const char* fileName, Recipe* recipe) {
 				p[i] = strtok_s(NULL, delim, &np); // ２個目以降の部分文字列取得
 
 			currentIngredient->index = atoi(p[0]);
-			myStrcpy(currentIngredient->food, p[1]);
+			myStrcpy(currentIngredient->food, p[1]);//myStr
 			currentIngredient->amount = atof(p[2]);
 
 			if (previousIngredient != NULL)
-				previousIngredient->nextIngredient = currentIngredient;
+				previousIngredient->nextIngredient = currentIngredient;//一つ前は
 			previousIngredient = currentIngredient;
 			currentIngredient = new Ingredient();
 		}
@@ -72,34 +72,7 @@ void readCSV2(const char* fileName, Recipe* recipe) {
 	}
 }
 
-void calculator(FoodCompositionTable* foodCompositionTable, Recipe* recipe) {
-	FoodComposition* foodComposition = foodCompositionTable->firstFoodComposition;
-	Ingredient* ingredient = recipe->firstIngredient;
-
-	while (ingredient != NULL) {
-		while (foodComposition != NULL) {
-			if (!(myStrcmp(ingredient->food, foodComposition->food))) {
-				ingredient->i_energy = VALUE(ingredient->amount, foodComposition->energy);
-				ingredient->i_protein = VALUE(ingredient->amount, foodComposition->protein);
-				ingredient->i_lipid = VALUE(ingredient->amount, foodComposition->lipid);
-				ingredient->i_carbohydrate = VALUE(ingredient->amount, foodComposition->carbohydrate);
-				ingredient->i_salt = VALUE(ingredient->amount, foodComposition->salt);
-
-				recipe->energy += ingredient->i_energy;
-				recipe->protein += ingredient->i_protein;
-				recipe->lipid += ingredient->i_lipid;
-				recipe->carbohydrate += ingredient->i_carbohydrate;
-				recipe->salt += ingredient->i_salt;
-
-				break;
-			}
-			foodComposition = foodComposition->nextFoodComposition;//
-		}
-		ingredient = ingredient->nextIngredient;//
-	}
-}
-
-void writeCSV(const char* fileName, Recipe* recipe) {
+void writeCSV(const char* fileName, Recipe* recipe) {//
 	Ingredient* ingredient = recipe->firstIngredient;
 
 	FILE* fp;
@@ -114,10 +87,10 @@ void writeCSV(const char* fileName, Recipe* recipe) {
 				ingredient->food, ingredient->amount,
 				ingredient->i_energy, ingredient->i_protein, ingredient->i_lipid,
 				ingredient->i_carbohydrate, ingredient->i_salt);//データの書き込み
-			ingredient = ingredient->nextIngredient;//次の月へ
+			ingredient = ingredient->nextIngredient;//次の材料へ
 		}
 		fprintf_s(fp, "合計,,,%f,%f,%f,%f,%f\n", recipe->energy, recipe->protein,
-			recipe->lipid, recipe->carbohydrate, recipe->salt);
+			recipe->lipid, recipe->carbohydrate, recipe->salt);//データの書き込み
 		fclose(fp);
 	}
 }
