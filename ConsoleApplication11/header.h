@@ -6,9 +6,6 @@
 #include <iostream>
 #define BUFFSIZE 1024
 using namespace std;
-#define ll long long
-#define PI acos(-1)
-#define rep(i, n) for (int i = 0; i < (n); i++)
 #define VALUE(n,m) n * m / 100
 
 struct FoodComposition {
