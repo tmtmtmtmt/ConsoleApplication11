@@ -22,7 +22,7 @@ struct FoodComposition {
 };
 
 struct FoodCompositionTable {
-	FoodComposition firstFoodComposition;
+	FoodComposition* firstFoodComposition;
 };
 
 struct Ingredient {
