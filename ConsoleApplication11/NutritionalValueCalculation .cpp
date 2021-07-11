@@ -12,12 +12,22 @@ int main(){
 	sprintf_s(keyWord, "keyword1");
 	sprintf_s(filePath, "%s\\ConsoleApplication11.ini", currentDirectory);
 
-	if (GetPrivateProfileString(section, keyWord, "none", keyValue, BUFFSIZE, filePath) == 0) {//iniファイルからデータをとってくる
+	if (GetPrivateProfileString(section, keyWord, "\0", keyValue, BUFFSIZE, filePath) == 0) {//iniファイルからデータをとってくる 文字数が返り値
 		fprintf_s(stdout, "%s doesn't contain [%s] %s\n", filePath, section, keyWord);//エラー表示
 		return 0;//終了
 	}
 
+	sprintf_s(keyWord, "keyword2");
+	if (GetPrivateProfileString(section, keyWord, "\0", keyValue, BUFFSIZE, filePath) == 0) {//iniファイルからデータをとってくる 文字数が返り値
+		fprintf_s(stdout, "%s doesn't contain [%s] %s\n", filePath, section, keyWord);//エラー表示
+		return 0;//終了
+	}
 
+	sprintf_s(keyWord, "keyword3");
+	if (GetPrivateProfileString(section, keyWord, "\0", keyValue, BUFFSIZE, filePath) == 0) {//iniファイルからデータをとってくる 文字数が返り値
+		fprintf_s(stdout, "%s doesn't contain [%s] %s\n", filePath, section, keyWord);//エラー表示
+		return 0;//終了
+	}
 
 	return 0;
 }
