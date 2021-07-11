@@ -37,3 +37,37 @@ void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable) {
 		fclose(fp);
 	}
 }
+
+void readCSV2(const char* fileName, Recipe* recipe) {
+	FILE* fp;
+	char s[BUFFSIZE];
+	char delim[] = ", ";//デリミタ（複数渡せる）ここではカンマと空白
+	char* p[3];
+	char* np = NULL;
+	Ingredient* previousIngredient = NULL;
+	Ingredient* currentIngredient = new Ingredient();
+	recipe->firstIngredient = currentIngredient;
+
+	errno_t error;
+	error = fopen_s(&fp, fileName, "r");
+	if (error != 0)
+		fprintf_s(stderr, "failed to open");
+	else {
+		fgets(s, BUFFSIZE, fp);//１行目を飛ばす
+		while (fgets(s, BUFFSIZE, fp) != NULL) {
+			p[0] = strtok_s(s, delim, &np); // １個目の部分文字列取得
+			for (int i = 1; i < 3; i++)
+				p[i] = strtok_s(NULL, delim, &np); // ２個目以降の部分文字列取得
+
+			currentIngredient->index = atoi(p[0]);
+			strcpy_s(currentIngredient->foodDescription, p[1]);
+			currentIngredient->amount = atof(p[2]);
+
+			if (previousIngredient != NULL)
+				previousIngredient->nextIngredient = currentIngredient;
+			previousIngredient = currentIngredient;
+			currentIngredient = new Ingredient();
+		}
+		fclose(fp);
+	}
+}

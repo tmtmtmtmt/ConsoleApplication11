@@ -46,4 +46,5 @@ struct Recipe {
 	Ingredient* firstIngredient;
 };
 
-void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable)
+void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable);
+void readCSV2(const char* fileName, Recipe* recipe);

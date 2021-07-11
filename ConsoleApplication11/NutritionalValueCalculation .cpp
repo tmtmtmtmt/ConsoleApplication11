@@ -26,6 +26,9 @@ int main(){
 		return 0;//終了
 	}
 
+	Recipe recipe = { 0 };// 途中まで指定しないとき残りはゼロになる
+	readCSV2(keyValue, &recipe);
+
 	sprintf_s(keyWord, "keyword3");
 	if (GetPrivateProfileString(section, keyWord, "\0", keyValue, BUFFSIZE, filePath) == 0) {//iniファイルからデータをとってくる 文字数が返り値
 		fprintf_s(stdout, "%s doesn't contain [%s] %s\n", filePath, section, keyWord);//エラー表示
