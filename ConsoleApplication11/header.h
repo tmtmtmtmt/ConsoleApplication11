@@ -45,3 +45,5 @@ struct Recipe {
 	double salt;
 	Ingredient* firstIngredient;
 };
+
+void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable)

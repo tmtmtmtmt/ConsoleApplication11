@@ -17,6 +17,9 @@ int main(){
 		return 0;//終了
 	}
 
+	FoodCompositionTable foodCompositionTable;
+	readCSV(keyValue, &foodCompositionTable);
+
 	sprintf_s(keyWord, "keyword2");
 	if (GetPrivateProfileString(section, keyWord, "\0", keyValue, BUFFSIZE, filePath) == 0) {//iniファイルからデータをとってくる 文字数が返り値
 		fprintf_s(stdout, "%s doesn't contain [%s] %s\n", filePath, section, keyWord);//エラー表示
