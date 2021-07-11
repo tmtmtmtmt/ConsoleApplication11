@@ -71,3 +71,30 @@ void readCSV2(const char* fileName, Recipe* recipe) {
 		fclose(fp);
 	}
 }
+
+void calculator(FoodCompositionTable* foodCompositionTable, Recipe* recipe) {
+	FoodComposition* foodComposition = foodCompositionTable->firstFoodComposition;
+	Ingredient* ingredient = recipe->firstIngredient;
+
+	while (ingredient != NULL) {
+		while (foodComposition != NULL) {
+			if (!(strcmp(ingredient->foodDescription, foodComposition->foodDescription))) {
+				ingredient->i_energy = VALUE(ingredient->amount, foodComposition->energy);
+				ingredient->i_protein = VALUE(ingredient->amount, foodComposition->protein);
+				ingredient->i_lipid = VALUE(ingredient->amount, foodComposition->lipid);
+				ingredient->i_carbohydrate = VALUE(ingredient->amount, foodComposition->carbohydrate);
+				ingredient->i_salt = VALUE(ingredient->amount, foodComposition->salt);
+
+				recipe->energy += ingredient->i_energy;
+				recipe->protein += ingredient->i_protein;
+				recipe->lipid += ingredient->i_lipid;
+				recipe->carbohydrate += ingredient->i_carbohydrate;
+				recipe->salt += ingredient->i_salt;
+
+				break;
+			}
+			foodComposition = foodComposition->nextFoodComposition;//
+		}
+		ingredient = ingredient->nextIngredient;//
+	}
+}

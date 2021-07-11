@@ -9,6 +9,7 @@ using namespace std;
 #define ll long long
 #define PI acos(-1)
 #define rep(i, n) for (int i = 0; i < (n); i++)
+#define VALUE(n,m) n * m / 100
 
 struct FoodComposition {
 	int index;
@@ -48,3 +49,4 @@ struct Recipe {
 
 void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable);
 void readCSV2(const char* fileName, Recipe* recipe);
+void calculator(FoodCompositionTable* foodCompositionTable, Recipe* recipe);
