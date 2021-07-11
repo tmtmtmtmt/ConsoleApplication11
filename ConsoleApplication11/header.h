@@ -29,9 +29,19 @@ struct Ingredient {
 	int index;
 	char foodDescription[BUFFSIZE];
 	double amount;
+	double i_energy;
+	double i_protein;
+	double i_lipid;
+	double i_carbohydrate;
+	double i_salt;
 	Ingredient* nextIngredient;
 };
 
 struct Recipe {
+	double energy;
+	double protein;
+	double lipid;
+	double carbohydrate;
+	double salt;
 	Ingredient* firstIngredient;
 };
