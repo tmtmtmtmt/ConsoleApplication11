@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NutritionalValueCalculation .cpp">
+    <ClCompile Include="NutritionalValueCalculator .cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Func.cpp">
