@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Func.cpp" />
+    <ClCompile Include="myStr.cpp" />
     <ClCompile Include="NutritionalValueCalculator .cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@ void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable) {
 				p[i] = strtok_s(NULL, delim, &np); // ２個目以降の部分文字列取得
 
 			currentFoodComposition->index = atoi(p[0]);
-			strcpy_s(currentFoodComposition->foodDescription, p[1]);
+			myStrcpy(currentFoodComposition->food, p[1]);
 			currentFoodComposition->energy = atof(p[2]);
 			currentFoodComposition->protein = atof(p[3]);
 			currentFoodComposition->lipid = atof(p[4]);
@@ -60,7 +60,7 @@ void readCSV2(const char* fileName, Recipe* recipe) {
 				p[i] = strtok_s(NULL, delim, &np); // ２個目以降の部分文字列取得
 
 			currentIngredient->index = atoi(p[0]);
-			strcpy_s(currentIngredient->foodDescription, p[1]);
+			myStrcpy(currentIngredient->food, p[1]);
 			currentIngredient->amount = atof(p[2]);
 
 			if (previousIngredient != NULL)
@@ -78,7 +78,7 @@ void calculator(FoodCompositionTable* foodCompositionTable, Recipe* recipe) {
 
 	while (ingredient != NULL) {
 		while (foodComposition != NULL) {
-			if (!(strcmp(ingredient->foodDescription, foodComposition->foodDescription))) {
+			if (!(myStrcmp(ingredient->food, foodComposition->food))) {
 				ingredient->i_energy = VALUE(ingredient->amount, foodComposition->energy);
 				ingredient->i_protein = VALUE(ingredient->amount, foodComposition->protein);
 				ingredient->i_lipid = VALUE(ingredient->amount, foodComposition->lipid);
@@ -111,7 +111,7 @@ void writeCSV(const char* fileName, Recipe* recipe) {
 		fprintf_s(fp, "材料番号,食品名,分量（g）,エネルギー（kcal）,タンパク質,脂質,炭水化物,食塩相当量\n");
 		while (ingredient != NULL) {
 			fprintf_s(fp, "%d,%s,%f,%f,%f,%f,%f,%f\n", ingredient->index,
-				ingredient->foodDescription, ingredient->amount,
+				ingredient->food, ingredient->amount,
 				ingredient->i_energy, ingredient->i_protein, ingredient->i_lipid,
 				ingredient->i_carbohydrate, ingredient->i_salt);//データの書き込み
 			ingredient = ingredient->nextIngredient;//次の月へ

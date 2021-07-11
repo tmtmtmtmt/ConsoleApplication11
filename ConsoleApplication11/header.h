@@ -13,7 +13,7 @@ using namespace std;
 
 struct FoodComposition {
 	int index;
-	char foodDescription[BUFFSIZE];
+	char food[BUFFSIZE];
 	double energy;
 	double protein;
 	double lipid;
@@ -28,7 +28,7 @@ struct FoodCompositionTable {
 
 struct Ingredient {
 	int index;
-	char foodDescription[BUFFSIZE];
+	char food[BUFFSIZE];
 	double amount;
 	double i_energy;
 	double i_protein;
@@ -51,3 +51,7 @@ void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable);
 void readCSV2(const char* fileName, Recipe* recipe);
 void writeCSV(const char* fileName, Recipe* recipe);
 void calculator(FoodCompositionTable* foodCompositionTable, Recipe* recipe);
+int myStrlen(const char* s);
+char* myStrcpy(char* s1, const char* s2);
+char* myStrcat(char* s1, const char* s2);
+int myStrcmp(const char* s1, const char* s2);
