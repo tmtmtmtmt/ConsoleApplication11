@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Func.cpp" />
     <ClCompile Include="NutritionalValueCalculation .cpp" />
   </ItemGroup>
   <ItemGroup>
