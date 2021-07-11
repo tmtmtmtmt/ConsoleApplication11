@@ -49,4 +49,5 @@ struct Recipe {
 
 void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable);
 void readCSV2(const char* fileName, Recipe* recipe);
+void writeCSV(const char* fileName, Recipe* recipe);
 void calculator(FoodCompositionTable* foodCompositionTable, Recipe* recipe);

@@ -98,3 +98,26 @@ void calculator(FoodCompositionTable* foodCompositionTable, Recipe* recipe) {
 		ingredient = ingredient->nextIngredient;//
 	}
 }
+
+void writeCSV(const char* fileName, Recipe* recipe) {
+	Ingredient* ingredient = recipe->firstIngredient;
+
+	FILE* fp;
+	errno_t error;
+	error = fopen_s(&fp, fileName, "w");
+	if (error != 0)
+		fprintf_s(stderr, "failed to open");
+	else {
+		fprintf_s(fp, "材料番号,食品名,分量（g）,エネルギー（kcal）,タンパク質,脂質,炭水化物,食塩相当量\n");
+		while (ingredient != NULL) {
+			fprintf_s(fp, "%d,%s,%f,%f,%f,%f,%f,%f\n", ingredient->index,
+				ingredient->foodDescription, ingredient->amount,
+				ingredient->i_energy, ingredient->i_protein, ingredient->i_lipid,
+				ingredient->i_carbohydrate, ingredient->i_salt);//データの書き込み
+			ingredient = ingredient->nextIngredient;//次の月へ
+		}
+		fprintf_s(fp, "合計,,,%f,%f,%f,%f,%f\n", recipe->energy, recipe->protein,
+			recipe->lipid, recipe->carbohydrate, recipe->salt);
+		fclose(fp);
+	}
+}
