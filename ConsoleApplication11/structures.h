@@ -37,10 +37,10 @@ struct Recipe {
 	Ingredient* firstIngredient;
 };
 
-struct Standerd {
-	double standerd_energy;
-	double standerd_protein;
-	double standerd_lipid;
-	double standerd_carbohydrate;
-	double standerd_salt;
+struct Standard {
+	double standard_energy;
+	double standard_protein;
+	double standard_lipid;
+	double standard_carbohydrate;
+	double standard_salt;
 };

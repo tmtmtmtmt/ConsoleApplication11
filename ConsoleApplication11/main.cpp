@@ -18,7 +18,7 @@ int main() {
 	}
 
 	FoodCompositionTable foodCompositionTable;//構造体宣言
-	readCSV(keyValue, &foodCompositionTable);
+	readCSV1(keyValue, &foodCompositionTable);
 
 	sprintf_s(keyWord, "keyword2");
 	if (GetPrivateProfileString(section, keyWord, "\0", keyValue, BUFFSIZE, filePath) == 0) {//iniファイルからデータをとってくる 文字数が返り値
@@ -38,6 +38,28 @@ int main() {
 	}
 
 	writeCSV(keyValue, &recipe);
+
+	sprintf_s(keyWord, "keyword4");
+	if (GetPrivateProfileString(section, keyWord, "\0", keyValue, BUFFSIZE, filePath) == 0) {//iniファイルからデータをとってくる 文字数が返り値
+		fprintf_s(stdout, "%s doesn't contain [%s] %s\n", filePath, section, keyWord);//エラー表示
+		return 0;//終了
+	}
+	
+	int age, sex;
+	cout << "歳はいくつですか。" << endl;
+	cin >> age;
+	cout << "性別を教えてください。男性:0 女性:1" << endl;//male:0 female:1
+	cin >> sex;
+	
+	Standard standerd;
+	readCSV3(keyValue, &standerd, age, sex);
+
+	// 初期化
+	if (initscr() == NULL) {
+		return 1;
+	}
+
+	showGraph(&recipe, &standerd);
 
 	return 0;
 }

@@ -1,6 +1,6 @@
 #include "header.h"
 
-void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable) {//
+void readCSV1(const char* fileName, FoodCompositionTable* foodCompositionTable) {//
 	FILE* fp;
 	char s[BUFFSIZE];
 	char delim[] = ", ";//デリミタ（複数渡せる）ここではカンマと空白
@@ -67,6 +67,38 @@ void readCSV2(const char* fileName, Recipe* recipe) {//
 				previousIngredient->nextIngredient = currentIngredient;//一つ前は
 			previousIngredient = currentIngredient;
 			currentIngredient = new Ingredient();
+		}
+		fclose(fp);
+	}
+}
+
+void readCSV3(const char* fileName, Standard* standard, int age, int sex) {
+	FILE* fp;
+	char s[BUFFSIZE];
+	char delim[] = ", ";//デリミタ（複数渡せる）ここではカンマと空白
+	char* p[11];
+	char* np = NULL;
+
+	errno_t error;
+	error = fopen_s(&fp, fileName, "r");
+	if (error != 0)
+		fprintf_s(stderr, "failed to open");
+	else {
+		fgets(s, BUFFSIZE, fp);//１行目を飛ばす
+		while (fgets(s, BUFFSIZE, fp) != NULL) {
+			p[0] = strtok_s(s, delim, &np); // １個目の部分文字列取得
+			for (int i = 1; i < 11; i++)
+				p[i] = strtok_s(NULL, delim, &np); // ２個目以降の部分文字列取得
+
+			if (atof(p[0]) > age)
+				break;
+
+			int n = 0;
+			standard->standard_energy = atof(p[INDEX(n++, sex)]);
+			standard->standard_protein = atof(p[INDEX(n++, sex)]);
+			standard->standard_lipid = atof(p[INDEX(n++, sex)]);
+			standard->standard_carbohydrate = atof(p[INDEX(n++, sex)]);
+			standard->standard_salt = atof(p[INDEX(n++, sex)]);
 		}
 		fclose(fp);
 	}
