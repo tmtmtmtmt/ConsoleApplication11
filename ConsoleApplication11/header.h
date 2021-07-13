@@ -4,45 +4,10 @@
 #include <stdlib.h>
 #include <Windows.h>
 #include <iostream>
+#include "structures.h"
 #define BUFFSIZE 1024
-using namespace std;
 #define VALUE(n,m) n * m / 100
-
-struct FoodComposition {
-	int index;
-	char food[BUFFSIZE];
-	double energy;
-	double protein;
-	double lipid;
-	double carbohydrate;
-	double salt;
-	FoodComposition* nextFoodComposition;
-};
-
-struct FoodCompositionTable {
-	FoodComposition* firstFoodComposition;
-};
-
-struct Ingredient {
-	int index;
-	char food[BUFFSIZE];
-	double amount;
-	double i_energy;
-	double i_protein;
-	double i_lipid;
-	double i_carbohydrate;
-	double i_salt;
-	Ingredient* nextIngredient;
-};
-
-struct Recipe {
-	double energy;
-	double protein;
-	double lipid;
-	double carbohydrate;
-	double salt;
-	Ingredient* firstIngredient;
-};
+using namespace std;
 
 void readCSV(const char* fileName, FoodCompositionTable* foodCompositionTable);
 void readCSV2(const char* fileName, Recipe* recipe);
