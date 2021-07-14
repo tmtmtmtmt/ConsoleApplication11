@@ -72,12 +72,13 @@ void readCSV2(const char* fileName, Recipe* recipe) {//
 	}
 }
 
-void readCSV3(const char* fileName, Standard* standard, int age, int sex) {
+Standard readCSV3(const char* fileName, int age, int sex) {
 	FILE* fp;
 	char s[BUFFSIZE];
 	char delim[] = ", ";//デリミタ（複数渡せる）ここではカンマと空白
 	char* p[11];
 	char* np = NULL;
+	Standard tmp = { 0 };
 
 	errno_t error;
 	error = fopen_s(&fp, fileName, "r");
@@ -92,16 +93,14 @@ void readCSV3(const char* fileName, Standard* standard, int age, int sex) {
 
 			if (atof(p[0]) > age)
 				break;
-
-			int n = 0;
-			standard->standard_energy = atof(p[INDEX(n++, sex)]);
-			standard->standard_protein = atof(p[INDEX(n++, sex)]);
-			standard->standard_lipid = atof(p[INDEX(n++, sex)]);
-			standard->standard_carbohydrate = atof(p[INDEX(n++, sex)]);
-			standard->standard_salt = atof(p[INDEX(n++, sex)]);
+			if (sex)
+				tmp = { atof(p[2]),atof(p[4]),atof(p[6]),atof(p[8]),atof(p[10]) };
+			else
+				tmp = { atof(p[1]),atof(p[3]),atof(p[5]),atof(p[7]),atof(p[9]) };
 		}
 		fclose(fp);
 	}
+	return tmp;
 }
 
 void writeCSV(const char* fileName, Recipe* recipe) {//

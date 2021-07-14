@@ -44,22 +44,21 @@ int main() {
 		fprintf_s(stdout, "%s doesn't contain [%s] %s\n", filePath, section, keyWord);//エラー表示
 		return 0;//終了
 	}
-	
+
 	int age, sex;
 	cout << "歳はいくつですか。" << endl;
 	cin >> age;
 	cout << "性別を教えてください。男性:0 女性:1" << endl;//male:0 female:1
 	cin >> sex;
-	
-	Standard standerd;
-	readCSV3(keyValue, &standerd, age, sex);
+
+	Standard standard = readCSV3(keyValue, age, sex);
 
 	// 初期化
 	if (initscr() == NULL) {
 		return 1;
 	}
 
-	showGraph(&recipe, &standerd);
+	showGraph(&recipe, &standard);
 
 	return 0;
 }
