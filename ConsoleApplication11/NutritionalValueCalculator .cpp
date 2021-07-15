@@ -1,4 +1,5 @@
 ﻿#include "header.h"
+#define VALUE(n,m) n * m / 100
 
 void calculator(FoodCompositionTable* foodCompositionTable, Recipe* recipe) {//
 	FoodComposition* foodComposition = foodCompositionTable->firstFoodComposition;
@@ -7,22 +8,22 @@ void calculator(FoodCompositionTable* foodCompositionTable, Recipe* recipe) {//
 	while (ingredient != NULL) {
 		while (foodComposition != NULL) {
 			if (!(myStrcmp(ingredient->food, foodComposition->food))) {//myStr　文字列が一致していたらif文内を実行
-				ingredient->i_energy = VALUE(ingredient->amount, foodComposition->energy);//項目ごとに計算
-				ingredient->i_protein = VALUE(ingredient->amount, foodComposition->protein);
-				ingredient->i_lipid = VALUE(ingredient->amount, foodComposition->lipid);
-				ingredient->i_carbohydrate = VALUE(ingredient->amount, foodComposition->carbohydrate);
-				ingredient->i_salt = VALUE(ingredient->amount, foodComposition->salt);
+				ingredient->ingredientEnergy = VALUE(ingredient->amount, foodComposition->energy);//項目ごとに計算
+				ingredient->ingredientProtein = VALUE(ingredient->amount, foodComposition->protein);//プリプロセッサ
+				ingredient->ingredientLipid = VALUE(ingredient->amount, foodComposition->lipid);
+				ingredient->ingredientCarbohydrate = VALUE(ingredient->amount, foodComposition->carbohydrate);
+				ingredient->ingredientSalt = VALUE(ingredient->amount, foodComposition->salt);
 
-				recipe->energy += ingredient->i_energy;//合計していく
-				recipe->protein += ingredient->i_protein;
-				recipe->lipid += ingredient->i_lipid;
-				recipe->carbohydrate += ingredient->i_carbohydrate;
-				recipe->salt += ingredient->i_salt;
+				recipe->totalEnergy += ingredient->ingredientEnergy;//合計していく
+				recipe->totalProtein += ingredient->ingredientProtein;
+				recipe->totalLipid += ingredient->ingredientLipid;
+				recipe->totalCarbohydrate += ingredient->ingredientCarbohydrate;
+				recipe->totalSalt += ingredient->ingredientSalt;
 
 				break;
 			}
-			foodComposition = foodComposition->nextFoodComposition;//次の食品へ
+			foodComposition = foodComposition->nextFoodComposition;//成分表の次の食品へ
 		}
-		ingredient = ingredient->nextIngredient;//次の材料へ
+		ingredient = ingredient->nextIngredient;//レシピの次の材料へ
 	}
 }

@@ -1,35 +1,36 @@
 #include "header.h"
+#define SCALE(m,n) (int)(m * 24 / ((double)n * 8))
 
 void drawGraph(Recipe* recipe, Standard* standard) {
-	int a, b, scaleSize, t, n;
+	int a, b, scaleSize, t, s;
 	int scale = 0;
 
 	for (int i = 0; i < 5; i++) {
 		switch (i) {
 		case 0:
 			scaleSize = 400;
-			t = SCALE(recipe->energy, scaleSize);//尺度が異なるので変換//
-			n = SCALE(standard->standard_energy, scaleSize);//尺度が異なるので変換//
+			t = SCALE(recipe->totalEnergy, scaleSize);//尺度が異なるので変換//プリプロセッサ
+			s = SCALE(standard->standardEnergy, scaleSize);//尺度が異なるので変換//
 			break;
 		case 1:
 			scaleSize = 10;
-			t = SCALE(recipe->protein, scaleSize);//尺度が異なるので変換//
-			n = SCALE(standard->standard_protein, scaleSize);//尺度が異なるので変換//
+			t = SCALE(recipe->totalProtein, scaleSize);//尺度が異なるので変換//
+			s = SCALE(standard->standardProtein, scaleSize);//尺度が異なるので変換//
 			break;
 		case 2:
 			scaleSize = 10;
-			t = SCALE(recipe->lipid, scaleSize);//尺度が異なるので変換//
-			n = SCALE(standard->standard_lipid, scaleSize);//尺度が異なるので変換//
+			t = SCALE(recipe->totalLipid, scaleSize);//尺度が異なるので変換//
+			s = SCALE(standard->standardLipid, scaleSize);//尺度が異なるので変換//
 			break;
 		case 3:
 			scaleSize = 50;
-			t = SCALE(recipe->carbohydrate, scaleSize);//尺度が異なるので変換//
-			n = SCALE(standard->standard_carbohydrate, scaleSize);//尺度が異なるので変換//
+			t = SCALE(recipe->totalCarbohydrate, scaleSize);//尺度が異なるので変換//
+			s = SCALE(standard->standardCarbohydrate, scaleSize);//尺度が異なるので変換//
 			break;
 		case 4:
 			scaleSize = 1;
-			t = SCALE(recipe->salt, scaleSize);//尺度が異なるので変換//
-			n = SCALE(standard->standard_salt, scaleSize);//尺度が異なるので変換//
+			t = SCALE(recipe->totalSalt, scaleSize);//尺度が異なるので変換//
+			s = SCALE(standard->standardSalt, scaleSize);//尺度が異なるので変換//
 			break;
 		}
 
@@ -59,7 +60,7 @@ void drawGraph(Recipe* recipe, Standard* standard) {
 		a = HEIGHT - 5;
 		b += 3;
 		attrset(COLOR_PAIR(3));//色３を使う
-		for (int k = n; k >= 0; k--)
+		for (int k = s; k >= 0; k--)
 			mvaddstr(a--, b, "   ");//出力されるときは黄色くなる
 	}
 	refresh();//画面を更新
@@ -75,14 +76,14 @@ void showGraph(Recipe* recipe, Standard* standard) {
 	noecho();//キー入力した文字の非表示モード
 	curs_set(0); //カーソルの非表示モード
 	int key;//getch()の戻り値を代入する変数
-	int a, b;//上からa行目　左からb列目
+	int h, w;//上からh行目　左からw列目
 	attrset(COLOR_PAIR(1));//色１を使う
-	mvprintw(a = HEIGHT - 1, b = 4, "q:終了");//操作の補助説明
-	mvprintw(a, b += 47, ":あなた    :基準");
+	mvprintw(h = HEIGHT - 1, w = 4, "q:終了");//操作の補助説明
+	mvprintw(h, w += 47, ":あなた    :基準");
 	attrset(COLOR_PAIR(2));//色２を使う
-	mvprintw(a, b -= 2, "  ");
+	mvprintw(h, w -= 2, "  ");
 	attrset(COLOR_PAIR(3));//色３を使う
-	mvprintw(a, b += 11, "  ");
+	mvprintw(h, w += 11, "  ");
 
 	drawGraph(recipe, standard);
 

@@ -18,7 +18,7 @@ int main() {
 	}
 
 	FoodCompositionTable foodCompositionTable;//構造体宣言
-	readCSV1(keyValue, &foodCompositionTable);
+	readTable(keyValue, &foodCompositionTable);
 
 	sprintf_s(keyWord, "keyword2");
 	if (GetPrivateProfileString(section, keyWord, "\0", keyValue, BUFFSIZE, filePath) == 0) {//iniファイルからデータをとってくる 文字数が返り値
@@ -27,7 +27,7 @@ int main() {
 	}
 
 	Recipe recipe = { 0 };// 途中まで指定しないとき残りはゼロになる
-	readCSV2(keyValue, &recipe);
+	readRecipe(keyValue, &recipe);
 
 	calculator(&foodCompositionTable, &recipe);//
 
@@ -37,7 +37,7 @@ int main() {
 		return 0;//終了
 	}
 
-	writeCSV(keyValue, &recipe);
+	writeValue(keyValue, &recipe);
 
 	sprintf_s(keyWord, "keyword4");
 	if (GetPrivateProfileString(section, keyWord, "\0", keyValue, BUFFSIZE, filePath) == 0) {//iniファイルからデータをとってくる 文字数が返り値
@@ -46,12 +46,12 @@ int main() {
 	}
 
 	int age, sex;
-	cout << "歳はいくつですか。" << endl;
+	cout << "歳はいくつですか。数字のみ" << endl;
 	cin >> age;
 	cout << "性別を教えてください。男性:0 女性:1" << endl;//male:0 female:1
 	cin >> sex;
 
-	Standard standard = readCSV3(keyValue, age, sex);
+	Standard standard = readStandard(keyValue, age, sex);
 
 	// 初期化
 	if (initscr() == NULL) {
