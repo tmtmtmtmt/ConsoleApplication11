@@ -7,8 +7,6 @@
 #include <curses.h>
 #include "structures.h"
 #define BUFFSIZE 1024
-#define HEIGHT 30//画面の高さ（行数）
-#define WIDTH 120//画面の幅（列数）
 using namespace std;//標準入出力
 
 void readTable(const char* fileName, FoodCompositionTable* foodCompositionTable);//Func

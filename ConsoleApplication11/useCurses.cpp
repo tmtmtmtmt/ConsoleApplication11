@@ -1,9 +1,13 @@
 #include "header.h"
-#define SCALE(m,n) (int)(m * 24 / ((double)n * 8))
+#define HEIGHT 30//画面の高さ（行数）
+#define WIDTH 120//画面の幅（列数）
+#define SCALEINTERVAL 3//目盛り間隔
+#define SCALE(m,n) (int)(m * SCALEINTERVAL / ((double)n))//尺度変換
 
 void drawGraph(Recipe* recipe, Standard* standard) {
 	int a, b, scaleSize, t, s;
 	int scale = 0;
+	int graphSize = 23;
 
 	for (int i = 0; i < 5; i++) {
 		switch (i) {
@@ -36,23 +40,23 @@ void drawGraph(Recipe* recipe, Standard* standard) {
 
 		scale = 0;
 		attrset(COLOR_PAIR(1));//色１を使う
-		for (a = HEIGHT - 5, b = 5 + 23 * i; b < 20 + 23 * i; b++)
+		for (a = HEIGHT - 5, b = 5 + graphSize * i; b < 20 + graphSize * i; b++)
 			mvprintw(a, b, "_");//x軸を書く
-		for (a = HEIGHT - 5, b = 5 + 23 * i; a >= 0; a--) {
+		for (a = HEIGHT - 5, b = 5 + graphSize * i; a >= 0; a--) {
 			mvprintw(a, b, "|");//y軸を書く
-			if ((a - 1) % 3 == 0) {
+			if ((a - 1) % SCALEINTERVAL == 0) {
 				mvprintw(a, b - 4, "%d", scale);//目盛りの値
 				scale += scaleSize;//
 			}
 		}
 		mvprintw(a = 0, b = 1, "energy(kcal)");
-		mvprintw(a, b += 23, "protein(g)");
-		mvprintw(a, b += 23, "lipid(g)");
-		mvprintw(a, b += 23, "carbohydrate(g)");
-		mvprintw(a, b += 23, "salt(g)");
+		mvprintw(a, b += graphSize, "protein(g)");
+		mvprintw(a, b += graphSize, "lipid(g)");
+		mvprintw(a, b += graphSize, "carbohydrate(g)");
+		mvprintw(a, b += graphSize, "salt(g)");
 
 		a = HEIGHT - 5;
-		b = 10 + 23 * i;
+		b = 10 + graphSize * i;
 		attrset(COLOR_PAIR(2));//色２を使う
 		for (int j = t; j >= 0; j--)
 			mvaddstr(a--, b, "   ");//出力されるときは白くなる
