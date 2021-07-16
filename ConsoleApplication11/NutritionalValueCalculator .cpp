@@ -1,11 +1,12 @@
 ﻿#include "header.h"
-#define VALUE(n,m) n * m / 100
+#define VALUE(n,m) (double)n * (double)m / 100
 
 void calculator(FoodCompositionTable* foodCompositionTable, Recipe* recipe) {//
 	FoodComposition* foodComposition = foodCompositionTable->firstFoodComposition;
 	Ingredient* ingredient = recipe->firstIngredient;
 
 	while (ingredient != NULL) {
+		foodComposition = foodCompositionTable->firstFoodComposition;
 		while (foodComposition != NULL) {
 			if (!(myStrcmp(ingredient->food, foodComposition->food))) {//myStr　文字列が一致していたらif文内を実行
 				ingredient->ingredientEnergy = VALUE(ingredient->amount, foodComposition->energy);//項目ごとに計算
